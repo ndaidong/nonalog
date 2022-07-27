@@ -23,14 +23,14 @@ const getColor = (type) => {
   return conf[type]
 }
 
-const createLogLine = (args, namespace, type) => {
+const createLogLine = (args, namespace, separator, type) => {
   const parts = [pid]
 
   parts.push(`${STYLE.green}${(new Date()).toISOString()}${STYLE.reset}`)
 
   const namespaces = [...new Set(namespace.split(':').filter(ns => ns !== ''))]
   if (namespaces.length > 0) {
-    parts.push(`${STYLE.bold}${STYLE.magenta}${namespaces.join(' / ')}${STYLE.reset}`)
+    parts.push(`${STYLE.bold}${STYLE.magenta}${namespaces.join(separator)}${STYLE.reset}`)
   }
 
   parts.push(`${STYLE.bold}${getColor(type)}${type.toUpperCase()}${STYLE.reset}`)
@@ -68,24 +68,24 @@ const triggerEvent = (evt, message) => {
 }
 
 const _debug = (args, namespace, options) => {
-  const { print = true, event = false } = options
-  const txt = createLogLine(args, namespace, 'debug')
+  const { print = true, event = false, separator = ' / ' } = options
+  const txt = createLogLine(args, namespace, separator, 'debug')
   if (print) console.debug(txt)
   if (event) triggerEvent('debug', txt)
   return txt
 }
 
 const _error = (args, namespace, options) => {
-  const { print = true, event = false } = options
-  const txt = createLogLine(args, namespace, 'error')
+  const { print = true, event = false, separator = ' / ' } = options
+  const txt = createLogLine(args, namespace, separator, 'error')
   if (print) console.error(txt)
   if (event) triggerEvent('error', txt)
   return txt
 }
 
 const _trace = (args, namespace, options) => {
-  const { print = true, event = false } = options
-  const txt = createLogLine(args, namespace, 'trace')
+  const { print = true, event = false, separator = ' / ' } = options
+  const txt = createLogLine(args, namespace, separator, 'trace')
   if (print) {
     console.log('-'.repeat(80))
     console.trace(txt)
