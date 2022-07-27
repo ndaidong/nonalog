@@ -73,7 +73,7 @@ normalizerLog.debug('Resolve inconsistent data')
 
 ## APIs
 
-### logger(String namespace, Object options)
+### `logger(String namespace, Object options)`
 
 - `namespace`: optional, e.g "servicename", "service:module", "node1:serviceX:module8", etc
 - `options`: optional
@@ -94,7 +94,7 @@ Returns a logger instance, with the following methods:
 - `logger('service:module')` and `logger('service').branch('module')` are similar:
 
 
-### debug(argurments)
+### `debug(argurments)`
 
 Print out debug message.
 
@@ -108,7 +108,7 @@ debug('Welcome message', { name: 'Alice' }, [1, 2, 3, 4, 5])
 // --> 201374 | 2022-07-27T13:02:13.243Z | DEBUG | Welcome message { name: 'Alice' } [ 1, 2, 3, 4, 5 ]
 ```
 
-### error(argurments)
+### `error(argurments)`
 
 Print out error message.
 
@@ -119,7 +119,7 @@ error('Error occurred while sending email', { subject: 'Hello', body: 'hi Bob, L
 // --> 204753 | 2022-07-27T13:05:53.395Z | ERROR | Error occurred while sending email { subject: 'Hello', body: 'hi Bob, Long time no see' }
 ```
 
-### trace(argurments)
+### `trace(argurments)`
 
 Print out tracing log and data.
 
@@ -138,7 +138,7 @@ Event listener allows to add more actions on the logs when they are printed out,
 
 This simple approach frees the lazy developers like me from the unnecessary confusions.
 
-### onDebug(Function callback)
+### `onDebug(Function callback)`
 
 ```js
 import Database from 'better-sqlite3'
@@ -159,11 +159,11 @@ onDebug((msg) => {
 debug('Load user data from backup file')
 ```
 
-### onError(Function callback)
+### `onError(Function callback)`
 
 Same as `onDebug()`, but triggered with `error` log.
 
-### onTrace(Function callback)
+### `onTrace(Function callback)`
 
 Same as `onDebug()`, but triggered with `trace` log.
 
