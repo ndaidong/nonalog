@@ -44,7 +44,7 @@ debug('This is debug message')
 error('This is error message')
 // --> {PID} | {TIME} | ERROR | This is error message
 trace('This is trace message')
-// --> {PID} | {trace} | TRACE | This is error message
+// --> {PID} | {TIME} | TRACE | This is error message
 // tracing data
 
 // create logger instance for service `dataminer`
