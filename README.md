@@ -42,9 +42,9 @@ import { logger, debug, error, trace } from 'article-parser'
 debug('This is debug message')
 // --> {PID} | {TIME} | DEBUG | This is debug message
 error('This is error message')
-// --> {PID} | {TIME} | DEBUG | This is error message
+// --> {PID} | {TIME} | ERROR | This is error message
 trace('This is trace message')
-// --> {PID} | {trace} | DEBUG | This is error message
+// --> {PID} | {trace} | TRACE | This is error message
 // tracing data
 
 // create logger instance for service `dataminer`
