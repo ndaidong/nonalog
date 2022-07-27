@@ -43,3 +43,8 @@ moduleLogA1X.error('moduleLogA1X: This is error message')
 const moduleLogB1X = logger('myapp:myServiceLogB:myModuleB1')
 moduleLogB1X.debug('moduleLogB1X: This is debug message')
 moduleLogB1X.error('moduleLogB1X: This is error message')
+
+console.log('Test with other separator')
+const dotSeperatorLog = logger('myapp:love:dot', { separator: '.' })
+dotSeperatorLog.debug('dotSeperatorLog: This is debug message')
+dotSeperatorLog.error('dotSeperatorLog: This is error message')

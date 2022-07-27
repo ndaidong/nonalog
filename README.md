@@ -2,7 +2,7 @@
 
 **No**de.js **na**tive **log**ger
 
-[![NPM](https://badge.fury.io/js/article-parser.svg)](https://badge.fury.io/js/nonalog)
+[![NPM](https://badge.fury.io/js/nonalog.svg)](https://badge.fury.io/js/nonalog)
 ![CI test](https://github.com/ndaidong/nonalog/workflows/ci-test/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/ndaidong/nonalog/badge.svg)](https://coveralls.io/github/ndaidong/nonalog)
 ![CodeQL](https://github.com/ndaidong/nonalog/workflows/CodeQL/badge.svg)
@@ -80,6 +80,7 @@ normalizerLog.debug('Resolve inconsistent data')
   - `enable`: Boolean, enable logger or not (default: `true`)
   - `print`: Boolean, print out log or not (default: `true`)
   - `event`: Boolean, trigger events or not (default: `false`)
+  - `separator`: String, to display the namespace by level (default: ` / `)
 
 Returns a logger instance, with the following methods:
 
@@ -91,7 +92,7 @@ Returns a logger instance, with the following methods:
 *Note*:
 
 - No problem to create multi logger instances with the same namesapce
-- `logger('service:module')` and `logger('service').branch('module')` are similar:
+- `logger('service:module:component')` and `logger('service').branch('module').branch('component')` are similar
 
 
 ### `debug(argurments)`
@@ -138,11 +139,15 @@ Event listener allows to add more actions on the logs when they are printed out,
 
 This simple approach frees the lazy developers like me from the unnecessary confusions.
 
+Events will be applied to all existing logger instances, which have `event` option enabled.
+
 ### `onDebug(Function callback)`
 
 ```js
 import Database from 'better-sqlite3'
-import { debug, onDebug } from 'nonalog'
+import { logger, onDebug } from 'nonalog'
+
+const appLog = logger('myapp', { event: true })
 
 const logDB = new Database('/path/to/applogs.sqlite3', {
   timeout: 1e4
@@ -156,7 +161,7 @@ onDebug((msg) => {
   sql.run(msg)
 })
 
-debug('Load user data from backup file')
+appLog.debug('Load user data from backup file')
 ```
 
 ### `onError(Function callback)`
