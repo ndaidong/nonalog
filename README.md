@@ -2,14 +2,23 @@
 
 **No**de.js **na**tive **log**ger
 
+[![NPM](https://badge.fury.io/js/article-parser.svg)](https://badge.fury.io/js/nonalog)
+![CI test](https://github.com/ndaidong/nonalog/workflows/ci-test/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/ndaidong/nonalog/badge.svg)](https://coveralls.io/github/ndaidong/nonalog)
+![CodeQL](https://github.com/ndaidong/nonalog/workflows/CodeQL/badge.svg)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
+
 ![nonalog](https://res.cloudinary.com/pwshub/image/upload/v1658918465/documentation/Screenshot-nonalog.jpg)
 
 
-## Why was `nanolog` created?
+## Why was `nonalog` created?
 
 Because I just need a very simple logger to view log messages in terminal.
 
 I have used many loggers and they are all good, but their great features I almost never use.
+
+In addition, I don't like the complexity of the concepts `formatter`, `transport`, etc.
 
 
 ## Features
@@ -36,7 +45,7 @@ I have used many loggers and they are all good, but their great features I almos
 ### Usage
 
 ```js
-import { logger, debug, error, trace } from 'article-parser'
+import { logger, debug, error, trace } from 'nonalog'
 
 // regular usage
 debug('This is debug message')
@@ -64,7 +73,7 @@ normalizerLog.debug('Resolve inconsistent data')
 
 ## APIs
 
-### logger(String namespace, Object options)
+### `logger(String namespace, Object options)`
 
 - `namespace`: optional, e.g "servicename", "service:module", "node1:serviceX:module8", etc
 - `options`: optional
@@ -85,14 +94,88 @@ Returns a logger instance, with the following methods:
 - `logger('service:module')` and `logger('service').branch('module')` are similar:
 
 
-### debug(argurments)
-### error(argurments)
-### trace(argurments)
+### `debug(argurments)`
+
+Print out debug message.
+
+```js
+import { debug } from 'nonalog'
+
+debug('This is debug message')
+// --> 201374 | 2022-07-27T13:02:13.240Z | DEBUG | This is debug message
+
+debug('Welcome message', { name: 'Alice' }, [1, 2, 3, 4, 5])
+// --> 201374 | 2022-07-27T13:02:13.243Z | DEBUG | Welcome message { name: 'Alice' } [ 1, 2, 3, 4, 5 ]
+```
+
+### `error(argurments)`
+
+Print out error message.
+
+```js
+import { error } from 'nonalog'
+
+error('Error occurred while sending email', { subject: 'Hello', body: 'hi Bob, Long time no see' })
+// --> 204753 | 2022-07-27T13:05:53.395Z | ERROR | Error occurred while sending email { subject: 'Hello', body: 'hi Bob, Long time no see' }
+```
+
+### `trace(argurments)`
+
+Print out tracing log and data.
+
+```js
+import { trace } from 'nonalog'
+
+trace(new Error('Something went wrong'))
+```
+
+![nonalog tracing](https://res.cloudinary.com/pwshub/image/upload/v1658927360/documentation/nonalog_-_tracing.png)
+
 
 ## Events
 
-### onDebug(Function)
-### onError(Function)
-### onTrace(Function)
+Event listener allows to add more actions on the logs when they are printed out, such as write to file, insert into database or send to somewhere.
 
-// continue working...
+This simple approach frees the lazy developers like me from the unnecessary confusions.
+
+### `onDebug(Function callback)`
+
+```js
+import Database from 'better-sqlite3'
+import { debug, onDebug } from 'nonalog'
+
+const logDB = new Database('/path/to/applogs.sqlite3', {
+  timeout: 1e4
+})
+
+onDebug((msg) => {
+  // insert into sqlite db
+  const sql = logDB.prepare(`
+    INSERT INTO logs (message) VALUES (?)
+  `)
+  sql.run(msg)
+})
+
+debug('Load user data from backup file')
+```
+
+### `onError(Function callback)`
+
+Same as `onDebug()`, but triggered with `error` log.
+
+### `onTrace(Function callback)`
+
+Same as `onDebug()`, but triggered with `trace` log.
+
+## Test
+
+```bash
+git clone https://github.com/ndaidong/nonalog.git
+cd nonalog
+pnpm i
+npm test
+```
+
+# License
+
+The MIT License (MIT)

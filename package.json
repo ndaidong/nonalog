@@ -1,5 +1,5 @@
 {
-  "version": "0.0.1",
+  "version": "0.0.2",
   "name": "nonalog",
   "description": "Natural logger for Node.js",
   "homepage": "https://www.npmjs.com/package/nonalog",
@@ -17,6 +17,7 @@
     "lint": "standard .",
     "pretest": "npm run lint",
     "test": "NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest --coverage=true",
+    "eval": "node eval.js",
     "reset": "node reset"
   },
   "keywords": [

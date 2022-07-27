@@ -10,11 +10,6 @@ describe('test core APIs', () => {
   test('Check if logger function is ready', () => {
     expect(isFunction(logger)).toBeTruthy()
   })
-  test('Check if logger events is ready', () => {
-    expect(isFunction(onDebug)).toBeTruthy()
-    expect(isFunction(onError)).toBeTruthy()
-    expect(isFunction(onTrace)).toBeTruthy()
-  })
   test('Check if default methods are ready', () => {
     expect(isFunction(debug)).toBeTruthy()
     expect(isFunction(error)).toBeTruthy()
@@ -79,4 +74,30 @@ describe('test logger instance and its sub level', () => {
   })
 })
 
-// todo: test events
+describe('test log events', () => {
+  test('Check if logger events is ready', () => {
+    expect(isFunction(onDebug)).toBeTruthy()
+    expect(isFunction(onError)).toBeTruthy()
+    expect(isFunction(onTrace)).toBeTruthy()
+  })
+
+  const eventLogger = logger('event:test', { event: true })
+  test('test onDebug event', () => {
+    onDebug((msg) => {
+      expect(msg.includes('this is debug message')).toBeTruthy()
+    })
+    eventLogger.debug('this is debug message')
+  })
+  test('test onError event', () => {
+    onError((msg) => {
+      expect(msg.includes('this is error message')).toBeTruthy()
+    })
+    eventLogger.error('this is error message')
+  })
+  test('test onTrace event', () => {
+    onTrace((msg) => {
+      expect(msg.includes('this is trace message')).toBeTruthy()
+    })
+    eventLogger.trace('this is trace message')
+  })
+})
