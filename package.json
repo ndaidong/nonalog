@@ -16,7 +16,7 @@
   "scripts": {
     "lint": "standard .",
     "pretest": "npm run lint",
-    "test": "NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest --coverage=true",
+    "test": "NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest --verbose --coverage=true",
     "build": "node build",
     "eval": "node eval",
     "reset": "node reset"
