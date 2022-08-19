@@ -26,8 +26,7 @@ jobs:
       run: |
         npm i -g standard
         npm install
-        npm run lint
-        npm run test
+        npm test
 
     - name: sync to coveralls
       uses: coverallsapp/github-action@v1.1.2
