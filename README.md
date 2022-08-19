@@ -47,6 +47,9 @@ In addition, I don't like the complexity of the concepts `formatter`, `transport
 ```js
 import { logger, debug, error, trace } from 'nonalog'
 
+// with CommonJS environments
+// const { logger, debug, error, trace } = require('nonalog/dist/cjs/nonalog.js')
+
 // regular usage
 debug('This is debug message')
 // --> {PID} | {TIME} | DEBUG | This is debug message

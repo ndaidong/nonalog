@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "name": "nonalog",
   "description": "Natural logger for Node.js",
   "homepage": "https://www.npmjs.com/package/nonalog",
@@ -16,9 +16,20 @@
   "scripts": {
     "lint": "standard .",
     "pretest": "npm run lint",
-    "test": "NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest --coverage=true",
-    "eval": "node eval.js",
+    "test": "NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest --verbose --coverage=true",
+    "build": "node build",
+    "eval": "node eval",
     "reset": "node reset"
+  },
+  "standard": {
+    "ignore": [
+      "/dist"
+    ]
+  },
+  "devDependencies": {
+    "bellajs": "^11.0.3",
+    "esbuild": "^0.15.5",
+    "jest": "^28.1.3"
   },
   "keywords": [
     "logger",
@@ -26,9 +37,5 @@
     "log",
     "utilities"
   ],
-  "license": "MIT",
-  "devDependencies": {
-    "bellajs": "^11.0.3",
-    "jest": "^28.1.3"
-  }
+  "license": "MIT"
 }
