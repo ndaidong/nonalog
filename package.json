@@ -21,16 +21,21 @@
     "eval": "node eval",
     "reset": "node reset"
   },
+  "standard": {
+    "ignore": [
+      "/dist"
+    ]
+  },
+  "devDependencies": {
+    "bellajs": "^11.0.3",
+    "esbuild": "^0.15.5",
+    "jest": "^28.1.3"
+  },
   "keywords": [
     "logger",
     "console",
     "log",
     "utilities"
   ],
-  "license": "MIT",
-  "devDependencies": {
-    "bellajs": "^11.0.3",
-    "esbuild": "^0.15.5",
-    "jest": "^28.1.3"
-  }
+  "license": "MIT"
 }
