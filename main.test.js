@@ -2,7 +2,7 @@
 
 /* eslint-env jest */
 
-import { isFunction } from 'bellajs'
+import { isFunction, isObject, hasProperty } from 'bellajs'
 
 import { logger, debug, error, trace, onDebug, onError, onTrace } from './main.js'
 
@@ -83,20 +83,33 @@ describe('test log events', () => {
 
   const eventLogger = logger('event:test', { event: true })
   test('test onDebug event', () => {
-    onDebug((msg) => {
-      expect(msg.includes('this is debug message')).toBeTruthy()
+    onDebug((data) => {
+      console.log(data)
+      expect(isObject(data)).toBeTruthy()
+      expect(hasProperty(data, 'level')).toBeTruthy()
+      expect(data.level === 'debug').toBeTruthy()
+      expect(hasProperty(data, 'message')).toBeTruthy()
+      expect(data.message.includes('this is debug message')).toBeTruthy()
     })
     eventLogger.debug('this is debug message')
   })
   test('test onError event', () => {
-    onError((msg) => {
-      expect(msg.includes('this is error message')).toBeTruthy()
+    onError((data) => {
+      expect(isObject(data)).toBeTruthy()
+      expect(hasProperty(data, 'level')).toBeTruthy()
+      expect(data.level === 'error').toBeTruthy()
+      expect(hasProperty(data, 'message')).toBeTruthy()
+      expect(data.message.includes('this is error message')).toBeTruthy()
     })
     eventLogger.error('this is error message')
   })
   test('test onTrace event', () => {
-    onTrace((msg) => {
-      expect(msg.includes('this is trace message')).toBeTruthy()
+    onTrace((data) => {
+      expect(isObject(data)).toBeTruthy()
+      expect(hasProperty(data, 'level')).toBeTruthy()
+      expect(data.level === 'trace').toBeTruthy()
+      expect(hasProperty(data, 'message')).toBeTruthy()
+      expect(data.message.includes('this is trace message')).toBeTruthy()
     })
     eventLogger.trace('this is trace message')
   })
