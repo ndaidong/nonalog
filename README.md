@@ -147,21 +147,19 @@ Events will be applied to all existing logger instances, which have `event` opti
 ### `onDebug(Function callback)`
 
 ```js
-import Database from 'better-sqlite3'
 import { logger, onDebug } from 'nonalog'
 
 const appLog = logger('myapp', { event: true })
 
-const logDB = new Database('/path/to/applogs.sqlite3', {
-  timeout: 1e4
-})
-
-onDebug((msg) => {
-  // insert into sqlite db
-  const sql = logDB.prepare(`
-    INSERT INTO logs (message) VALUES (?)
-  `)
-  sql.run(msg)
+onDebug((entry) => {
+  // do everything with log data entry
+  const {
+    namespace,
+    level,
+    ts,
+    args,
+    message,
+  } = entry
 })
 
 appLog.debug('Load user data from backup file')
