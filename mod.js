@@ -1,7 +1,7 @@
-// logger
+// mod.js
 
-import { pid } from 'node:process'
-import { format } from 'util'
+import { pid } from 'https://deno.land/std/node/process.ts'
+import { format } from 'https://deno.land/std/node/util.ts'
 
 const STYLE = {
   reset: '\x1b[0m',
@@ -11,16 +11,40 @@ const STYLE = {
   yellow: '\x1b[33m',
   blue: '\x1b[34m',
   magenta: '\x1b[35m',
-  cyan: '\x1b[36m'
+  cyan: '\x1b[36m',
 }
 
 const getColor = (level) => {
   const conf = {
     debug: STYLE.cyan,
     error: STYLE.red,
-    trace: STYLE.yellow
+    trace: STYLE.yellow,
   }
   return conf[level]
+}
+
+const event = {
+  debug: [],
+  error: [],
+  trace: [],
+}
+
+export const onDebug = (fn) => {
+  event.debug.push(fn)
+}
+
+export const onError = (fn) => {
+  event.error.push(fn)
+}
+
+export const onTrace = (fn) => {
+  event.trace.push(fn)
+}
+
+const triggerEvent = (evt, data = {}) => {
+  event[evt].forEach((fn) => {
+    fn(data)
+  })
 }
 
 const createLogLine = (args, namespace, separator, level, ts) => {
@@ -41,30 +65,6 @@ const createLogLine = (args, namespace, separator, level, ts) => {
   parts.push(`${getColor(level)}${msg}${STYLE.reset}`)
 
   return parts.join(' | ')
-}
-
-const event = {
-  debug: [],
-  error: [],
-  trace: []
-}
-
-export const onDebug = (fn) => {
-  event.debug.push(fn)
-}
-
-export const onError = (fn) => {
-  event.error.push(fn)
-}
-
-export const onTrace = (fn) => {
-  event.trace.push(fn)
-}
-
-const triggerEvent = (evt, data = {}) => {
-  event[evt].forEach((fn) => {
-    fn(data)
-  })
 }
 
 const log = (args, namespace, options, level) => {
@@ -91,7 +91,7 @@ const log = (args, namespace, options, level) => {
       level,
       ts,
       args,
-      message: msg
+      message: msg,
     })
   }
   return message
@@ -111,7 +111,7 @@ export const logger = (namespace = '', options = {}) => {
     },
     branch: (name, opts = {}) => {
       return logger(`${namespace}:${name}`, opts)
-    }
+    },
   }
   return instance
 }
