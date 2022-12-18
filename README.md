@@ -3,11 +3,9 @@
 **No**de.js **na**tive **log**ger
 
 [![NPM](https://badge.fury.io/js/nonalog.svg)](https://badge.fury.io/js/nonalog)
+![CodeQL](https://github.com/ndaidong/nonalog/workflows/CodeQL/badge.svg)
 ![CI test](https://github.com/ndaidong/nonalog/workflows/ci-test/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/ndaidong/nonalog/badge.svg)](https://coveralls.io/github/ndaidong/nonalog)
-![CodeQL](https://github.com/ndaidong/nonalog/workflows/CodeQL/badge.svg)
-[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
-
 
 ![nonalog](https://res.cloudinary.com/pwshub/image/upload/v1658918465/documentation/Screenshot-nonalog.jpg)
 
@@ -33,22 +31,13 @@ In addition, I don't like the complexity of the concepts `formatter`, `transport
 - Node.js
 
   ```bash
-  npm i nanolog
-
-  # pnpm
   pnpm i nanolog
-
-  # yarn
-  yarn add nanolog
   ```
 
 ### Usage
 
 ```js
 import { logger, debug, error, trace } from 'nonalog'
-
-// with CommonJS environments
-// const { logger, debug, error, trace } = require('nonalog/dist/cjs/nonalog.js')
 
 // regular usage
 debug('This is debug message')
@@ -179,9 +168,20 @@ Same as `onDebug()`, but triggered with `trace` log.
 git clone https://github.com/ndaidong/nonalog.git
 cd nonalog
 pnpm i
-npm test
+pnpm test
+
+# evaluation
+pnpm run eval
+
+# with Bun
+pnpm run beval
+
+# with Deno
+pnpm run deval
 ```
 
 # License
 
 The MIT License (MIT)
+
+---

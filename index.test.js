@@ -1,10 +1,10 @@
-// main.test
+// index.test
 
 /* eslint-env jest */
 
 import { isFunction, isObject, hasProperty } from 'bellajs'
 
-import { logger, debug, error, trace, onDebug, onError, onTrace } from './main.js'
+import { logger, debug, error, trace, onDebug, onError, onTrace } from './index.js'
 
 describe('test core APIs', () => {
   test('Check if logger function is ready', () => {
@@ -37,7 +37,7 @@ describe('test core APIs', () => {
 
 describe('test logger instance and its sub level', () => {
   const sublogger = logger('sub')
-  test("Check if sublogger's methods are ready", () => {
+  test('Check if sublogger\'s methods are ready', () => {
     expect(isFunction(sublogger.debug)).toBeTruthy()
     expect(isFunction(sublogger.error)).toBeTruthy()
     expect(isFunction(sublogger.trace)).toBeTruthy()
@@ -84,7 +84,6 @@ describe('test log events', () => {
   const eventLogger = logger('event:test', { event: true })
   test('test onDebug event', () => {
     onDebug((data) => {
-      console.log(data)
       expect(isObject(data)).toBeTruthy()
       expect(hasProperty(data, 'level')).toBeTruthy()
       expect(data.level === 'debug').toBeTruthy()

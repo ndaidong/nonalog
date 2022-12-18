@@ -1,6 +1,6 @@
-// eval.js
+// deval.js
 
-import { logger, debug, error, trace } from './index.js'
+import { logger, debug, error, trace } from './mod.js'
 
 console.log('Work with default methods')
 debug('This is debug message')
