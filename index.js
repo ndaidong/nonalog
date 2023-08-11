@@ -17,6 +17,7 @@ const STYLE = {
 const getColor = (level) => {
   const conf = {
     debug: STYLE.cyan,
+    info: STYLE.blue,
     error: STYLE.red,
     trace: STYLE.yellow,
   }
@@ -25,12 +26,17 @@ const getColor = (level) => {
 
 const event = {
   debug: [],
+  info: [],
   error: [],
   trace: [],
 }
 
 export const onDebug = (fn) => {
   event.debug.push(fn)
+}
+
+export const onInfo = (fn) => {
+  event.info.push(fn)
 }
 
 export const onError = (fn) => {
@@ -103,6 +109,9 @@ export const logger = (namespace = '', options = {}) => {
     debug: (...args) => {
       return args.length ? enable && log(args, namespace, options, 'debug') : null
     },
+    info: (...args) => {
+      return args.length ? enable && log(args, namespace, options, 'info') : null
+    },
     error: (...args) => {
       return args.length ? enable && log(args, namespace, options, 'error') : null
     },
@@ -119,5 +128,6 @@ export const logger = (namespace = '', options = {}) => {
 const defaultLogger = logger()
 
 export const debug = defaultLogger.debug
+export const info = defaultLogger.info
 export const error = defaultLogger.error
 export const trace = defaultLogger.trace

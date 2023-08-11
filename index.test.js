@@ -4,7 +4,7 @@
 
 import { isFunction, isObject, hasProperty } from 'bellajs'
 
-import { logger, debug, error, trace, onDebug, onError, onTrace } from './index.js'
+import { logger, debug, info, error, trace, onDebug, onInfo, onError, onTrace } from './index.js'
 
 describe('test core APIs', () => {
   test('Check if logger function is ready', () => {
@@ -12,6 +12,7 @@ describe('test core APIs', () => {
   })
   test('Check if default methods are ready', () => {
     expect(isFunction(debug)).toBeTruthy()
+    expect(isFunction(info)).toBeTruthy()
     expect(isFunction(error)).toBeTruthy()
     expect(isFunction(trace)).toBeTruthy()
   })
@@ -20,6 +21,12 @@ describe('test core APIs', () => {
     expect(output.includes('DEBUG')).toBeTruthy()
     expect(output.includes('this is debug message')).toBeTruthy()
     expect(debug() === null).toBeTruthy()
+  })
+  test('test info output messages', () => {
+    const output = info('this is info message')
+    expect(output.includes('INFO')).toBeTruthy()
+    expect(output.includes('this is info message')).toBeTruthy()
+    expect(info() === null).toBeTruthy()
   })
   test('test error output messages', () => {
     const output = error('this is error message')
@@ -39,6 +46,7 @@ describe('test logger instance and its sub level', () => {
   const sublogger = logger('sub')
   test('Check if sublogger\'s methods are ready', () => {
     expect(isFunction(sublogger.debug)).toBeTruthy()
+    expect(isFunction(sublogger.info)).toBeTruthy()
     expect(isFunction(sublogger.error)).toBeTruthy()
     expect(isFunction(sublogger.trace)).toBeTruthy()
     expect(isFunction(sublogger.branch)).toBeTruthy()
@@ -49,6 +57,13 @@ describe('test logger instance and its sub level', () => {
     expect(output.includes('sub')).toBeTruthy()
     expect(output.includes('DEBUG')).toBeTruthy()
     expect(output.includes('this is debug message')).toBeTruthy()
+  })
+
+  test('test info output messages', () => {
+    const output = sublogger.info('this is info message')
+    expect(output.includes('sub')).toBeTruthy()
+    expect(output.includes('INFO')).toBeTruthy()
+    expect(output.includes('this is info message')).toBeTruthy()
   })
 
   test('test error output messages', () => {
@@ -68,6 +83,7 @@ describe('test logger instance and its sub level', () => {
   test('Test child instance created from sub level', () => {
     const subOfSubLogger = sublogger.branch('child')
     expect(isFunction(subOfSubLogger.debug)).toBeTruthy()
+    expect(isFunction(subOfSubLogger.info)).toBeTruthy()
     expect(isFunction(subOfSubLogger.error)).toBeTruthy()
     expect(isFunction(subOfSubLogger.trace)).toBeTruthy()
     expect(isFunction(subOfSubLogger.branch)).toBeTruthy()
@@ -77,11 +93,13 @@ describe('test logger instance and its sub level', () => {
 describe('test log events', () => {
   test('Check if logger events is ready', () => {
     expect(isFunction(onDebug)).toBeTruthy()
+    expect(isFunction(onInfo)).toBeTruthy()
     expect(isFunction(onError)).toBeTruthy()
     expect(isFunction(onTrace)).toBeTruthy()
   })
 
   const eventLogger = logger('event:test', { event: true })
+
   test('test onDebug event', () => {
     onDebug((data) => {
       expect(isObject(data)).toBeTruthy()
@@ -92,6 +110,18 @@ describe('test log events', () => {
     })
     eventLogger.debug('this is debug message')
   })
+
+  test('test onInfo event', () => {
+    onInfo((data) => {
+      expect(isObject(data)).toBeTruthy()
+      expect(hasProperty(data, 'level')).toBeTruthy()
+      expect(data.level === 'info').toBeTruthy()
+      expect(hasProperty(data, 'message')).toBeTruthy()
+      expect(data.message.includes('this is info message')).toBeTruthy()
+    })
+    eventLogger.info('this is info message')
+  })
+
   test('test onError event', () => {
     onError((data) => {
       expect(isObject(data)).toBeTruthy()
@@ -102,6 +132,7 @@ describe('test log events', () => {
     })
     eventLogger.error('this is error message')
   })
+
   test('test onTrace event', () => {
     onTrace((data) => {
       expect(isObject(data)).toBeTruthy()

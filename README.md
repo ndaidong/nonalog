@@ -37,11 +37,13 @@ In addition, I don't like the complexity of the concepts `formatter`, `transport
 ### Usage
 
 ```js
-import { logger, debug, error, trace } from 'nonalog'
+import { logger, debug, info, error, trace } from 'nonalog'
 
 // regular usage
 debug('This is debug message')
 // --> {PID} | {TIME} | DEBUG | This is debug message
+debug('This is info message')
+// --> {PID} | {TIME} | INFO | This is info message
 error('This is error message')
 // --> {PID} | {TIME} | ERROR | This is error message
 trace('This is trace message')
@@ -77,6 +79,7 @@ normalizerLog.debug('Resolve inconsistent data')
 Returns a logger instance, with the following methods:
 
 - `debug()`: print out debug log
+- `info()`: print out info log
 - `error()`: print out error log
 - `trace()`: print out trace log and tracing data
 - `brance()`: create logger instance at sub level of current instance
@@ -154,6 +157,10 @@ onDebug((entry) => {
 appLog.debug('Load user data from backup file')
 ```
 
+### `onInfo(Function callback)`
+
+Same as `onDebug()`, but triggered with `info` log.
+
 ### `onError(Function callback)`
 
 Same as `onDebug()`, but triggered with `error` log.
@@ -171,13 +178,7 @@ pnpm i
 pnpm test
 
 # evaluation
-pnpm run eval
-
-# with Bun
-pnpm run beval
-
-# with Deno
-pnpm run deval
+pnpm eval
 ```
 
 # License
