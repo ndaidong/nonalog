@@ -11,7 +11,7 @@
   "main": "./index.js",
   "type": "module",
   "engines": {
-    "node": ">= 14"
+    "node": ">= 18"
   },
   "scripts": {
     "lint": "eslint .",
