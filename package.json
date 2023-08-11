@@ -1,5 +1,5 @@
 {
-  "version": "1.0.3",
+  "version": "1.0.4",
   "name": "nonalog",
   "description": "Natural logger for Node.js / Bun / Deno",
   "homepage": "https://www.npmjs.com/package/nonalog",
@@ -19,14 +19,12 @@
     "pretest": "npm run lint",
     "test": "NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest --verbose --coverage=true",
     "eval": "node eval.js",
-    "beval": "bun eval.js",
-    "deval": "deno run deval.js",
     "reset": "node reset.js"
   },
   "devDependencies": {
-    "bellajs": "^11.1.1",
-    "eslint": "^8.30.0",
-    "jest": "^29.3.1"
+    "bellajs": "^11.1.2",
+    "eslint": "^8.46.0",
+    "jest": "^29.6.2"
   },
   "keywords": [
     "logger",
