@@ -1,5 +1,5 @@
 {
-  "version": "1.0.4",
+  "version": "1.0.5",
   "name": "nonalog",
   "description": "Natural logger for Node.js / Bun / Deno",
   "homepage": "https://www.npmjs.com/package/nonalog",

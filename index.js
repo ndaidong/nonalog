@@ -1,6 +1,7 @@
 // index.js
 
 import { pid } from 'node:process'
+import { threadId } from 'node:worker_threads'
 import { format } from 'node:util'
 
 const STYLE = {
@@ -54,7 +55,7 @@ const triggerEvent = (evt, data = {}) => {
 }
 
 const createLogLine = (args, namespace, separator, level, ts) => {
-  const parts = [pid]
+  const parts = [pid, threadId]
 
   parts.push(`${STYLE.green}${ts}${STYLE.reset}`)
 
@@ -93,6 +94,8 @@ const log = (args, namespace, options, level) => {
       return format(item)
     }).join(' ')
     triggerEvent(level, {
+      pid,
+      threadId,
       namespace,
       level,
       ts,
