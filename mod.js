@@ -1,7 +1,5 @@
 // mod.js
-
-import { pid } from 'https://deno.land/std/node/process.ts'
-import { format } from 'https://deno.land/std/node/util.ts'
+import { sprintf } from 'https://deno.land/std/fmt/printf.ts'
 
 const STYLE = {
   reset: '\x1b[0m',
@@ -48,7 +46,7 @@ const triggerEvent = (evt, data = {}) => {
 }
 
 const createLogLine = (args, namespace, separator, level, ts) => {
-  const parts = [pid]
+  const parts = [Deno.pid]
 
   parts.push(`${STYLE.green}${ts}${STYLE.reset}`)
 
@@ -60,7 +58,7 @@ const createLogLine = (args, namespace, separator, level, ts) => {
   parts.push(`${STYLE.bold}${getColor(level)}${level.toUpperCase()}${STYLE.reset}`)
 
   const msg = args.map((item) => {
-    return format(item)
+    return sprintf(item)
   }).join(' ')
   parts.push(`${getColor(level)}${msg}${STYLE.reset}`)
 
@@ -84,7 +82,7 @@ const log = (args, namespace, options, level) => {
   }
   if (event) {
     const msg = args.map((item) => {
-      return format(item)
+      return sprintf(item)
     }).join(' ')
     triggerEvent(level, {
       namespace,
