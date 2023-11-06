@@ -1,5 +1,5 @@
 // mod.js
-import { format } from 'https://deno.land/std@0.177.1/node/util.ts'
+import { sprintf } from 'https://deno.land/std/fmt/printf.ts'
 
 const STYLE = {
   reset: '\x1b[0m',
@@ -58,7 +58,7 @@ const createLogLine = (args, namespace, separator, level, ts) => {
   parts.push(`${STYLE.bold}${getColor(level)}${level.toUpperCase()}${STYLE.reset}`)
 
   const msg = args.map((item) => {
-    return format(item)
+    return sprintf(item)
   }).join(' ')
   parts.push(`${getColor(level)}${msg}${STYLE.reset}`)
 
