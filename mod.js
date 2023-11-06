@@ -82,7 +82,7 @@ const log = (args, namespace, options, level) => {
   }
   if (event) {
     const msg = args.map((item) => {
-      return format(item)
+      return sprintf(item)
     }).join(' ')
     triggerEvent(level, {
       namespace,
