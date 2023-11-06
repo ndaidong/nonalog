@@ -1,7 +1,5 @@
 // mod.js
-
-import { pid } from 'https://deno.land/std/node/process.ts'
-import { format } from 'https://deno.land/std/node/util.ts'
+import { format } from 'https://deno.land/std@0.177.1/node/util.ts'
 
 const STYLE = {
   reset: '\x1b[0m',
@@ -48,7 +46,7 @@ const triggerEvent = (evt, data = {}) => {
 }
 
 const createLogLine = (args, namespace, separator, level, ts) => {
-  const parts = [pid]
+  const parts = [Deno.pid]
 
   parts.push(`${STYLE.green}${ts}${STYLE.reset}`)
 

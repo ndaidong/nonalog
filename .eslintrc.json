@@ -10,7 +10,7 @@
   },
   "globals": {
     "globalThis": true,
-    "URLPattern": true
+    "Deno": true
   },
   "plugins": [],
   "overrides": [],
