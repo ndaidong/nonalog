@@ -1,6 +1,6 @@
 // deval.ts
 
-import { logger, debug, info, error, trace } from './mod.ts'
+import { logger, debug, info, error, trace } from './mod.js'
 
 console.log('Work with default methods')
 debug('This is debug message')

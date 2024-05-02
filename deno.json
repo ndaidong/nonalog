@@ -1,7 +1,7 @@
 {
   "name": "@ndaidong/nonalog",
   "version": "1.0.8",
-  "exports": "./mod.ts",
+  "exports": "./mod.js",
   "imports": {
     "printf": "https://deno.land/std@0.224.0/fmt/printf.ts"
   }
