@@ -1,0 +1,5 @@
+{
+  "name": "@ndaidong/nonalog",
+  "version": "1.0.7",
+  "exports": "./mod.js"
+}
