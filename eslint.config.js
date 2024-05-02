@@ -14,8 +14,8 @@ export default [
         ...globals.browser,
         ...globals.jest,
         Intl: 'readonly',
+        format: 'readonly',
         Deno: 'readonly',
-        Bun: 'readonly',
       },
     },
     ignores: [
