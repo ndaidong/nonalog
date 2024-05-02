@@ -1,5 +1,7 @@
-// mod.js
-import { sprintf } from 'https://deno.land/std@0.224.0/fmt/printf.ts'
+// mod.ts
+import { sprintf } from 'printf'
+
+const pid = Deno.pid
 
 const STYLE = {
   reset: '\x1b[0m',
@@ -15,6 +17,7 @@ const STYLE = {
 const getColor = (level) => {
   const conf = {
     debug: STYLE.cyan,
+    info: STYLE.blue,
     error: STYLE.red,
     trace: STYLE.yellow,
   }
@@ -23,12 +26,17 @@ const getColor = (level) => {
 
 const event = {
   debug: [],
+  info: [],
   error: [],
   trace: [],
 }
 
 export const onDebug = (fn) => {
   event.debug.push(fn)
+}
+
+export const onInfo = (fn) => {
+  event.info.push(fn)
 }
 
 export const onError = (fn) => {
@@ -46,7 +54,7 @@ const triggerEvent = (evt, data = {}) => {
 }
 
 const createLogLine = (args, namespace, separator, level, ts) => {
-  const parts = [Deno.pid]
+  const parts = [pid]
 
   parts.push(`${STYLE.green}${ts}${STYLE.reset}`)
 
@@ -82,9 +90,10 @@ const log = (args, namespace, options, level) => {
   }
   if (event) {
     const msg = args.map((item) => {
-      return sprintf(item)
+      return format(item)
     }).join(' ')
     triggerEvent(level, {
+      pid,
       namespace,
       level,
       ts,
@@ -100,6 +109,9 @@ export const logger = (namespace = '', options = {}) => {
   const instance = {
     debug: (...args) => {
       return args.length ? enable && log(args, namespace, options, 'debug') : null
+    },
+    info: (...args) => {
+      return args.length ? enable && log(args, namespace, options, 'info') : null
     },
     error: (...args) => {
       return args.length ? enable && log(args, namespace, options, 'error') : null
@@ -117,5 +129,6 @@ export const logger = (namespace = '', options = {}) => {
 const defaultLogger = logger()
 
 export const debug = defaultLogger.debug
+export const info = defaultLogger.info
 export const error = defaultLogger.error
 export const trace = defaultLogger.trace

@@ -5,7 +5,6 @@
 [![NPM](https://badge.fury.io/js/nonalog.svg)](https://badge.fury.io/js/nonalog)
 ![CodeQL](https://github.com/ndaidong/nonalog/workflows/CodeQL/badge.svg)
 ![CI test](https://github.com/ndaidong/nonalog/workflows/ci-test/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/ndaidong/nonalog/badge.svg)](https://coveralls.io/github/ndaidong/nonalog)
 
 ![nonalog](https://res.cloudinary.com/pwshub/image/upload/v1658918465/documentation/Screenshot-nonalog.jpg)
 
