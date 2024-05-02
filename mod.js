@@ -1,5 +1,5 @@
 // mod.js
-import { sprintf } from 'https://deno.land/std/fmt/printf.ts'
+import { sprintf } from 'https://deno.land/std@0.224.0/fmt/printf.ts'
 
 const STYLE = {
   reset: '\x1b[0m',
