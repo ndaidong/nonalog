@@ -2,7 +2,12 @@ node_modules
 coverage
 .github
 pnpm-lock.yaml
+deno.lock
 deval.js
 mod.js
 reset.js
 deno.json
+eslint.config.js
+index.test.js
+eval.js
+LICENSE
